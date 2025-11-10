@@ -5,4 +5,9 @@
     <string name="_15">15%</string>
     <string name="_0">0%</string>
     <string name="bill_amount">Bill Amount</string>
+    <string name="increasenumberofpeople">IncreaseNumberOfPeople</string>
+    <string name="add">+</string>
+    <string name="subtract">-</string>
+    <string name="_4">4</string>
+    <string name="minus_sign">-</string>
 </resources>
