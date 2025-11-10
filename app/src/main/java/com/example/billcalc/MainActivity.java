@@ -12,15 +12,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     EditText billAmount;
+    EditText changeableAmountOfPeople;
     TextView amountPerPerson;
     Button zeroPercent;
     Button tenPercent;
     Button fifteenPercent;
     Button eighteenPercent;
+    Button subtractFromAmountOfPeople;
     Button changeNumberOfPeople;
     LinearLayout collapsableNumberOfPeople;
     double tipPercent = 1.15;
     int amountOfPeople = 4;
+    @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -31,12 +34,14 @@ public class MainActivity extends AppCompatActivity {
         //linking XML and JAVA
         billAmount = findViewById(R.id.BillAmount);
         amountPerPerson = findViewById(R.id.Amount);
+        changeableAmountOfPeople = findViewById(R.id.ChangeableAmountOfPeople);
 
         zeroPercent = findViewById(R.id.Zero);
         tenPercent = findViewById(R.id.Ten);
         fifteenPercent = findViewById(R.id.Fifteen);
         eighteenPercent = findViewById(R.id.Eighteen);
         changeNumberOfPeople = findViewById(R.id.ChangeNumberOfPeople);
+        subtractFromAmountOfPeople = findViewById(R.id.subtractFromNumberOfPeople);
 
         collapsableNumberOfPeople = findViewById(R.id.CollapsableNumberOfPeople);
         collapsableNumberOfPeople.setAlpha(0f);
@@ -77,10 +82,25 @@ public class MainActivity extends AppCompatActivity {
             changeBack();
             highlightButton(eighteenPercent);
         });
-
+        subtractFromAmountOfPeople.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("DefaultLocale")
+            @Override
+            public void onClick(View v) {
+                if(amountOfPeople!=0)
+                {
+                    amountOfPeople--;
+                }
+                changeableAmountOfPeople.setText(String.format("%d",amountOfPeople));
+            }
+        });
+        //displays the collapsable view
         changeNumberOfPeople.setOnClickListener(view -> {
             //add animation to fly in from bottom
-            collapsableNumberOfPeople.setAlpha(1f);
+            changeableAmountOfPeople.setText(String.format("%d",amountOfPeople));
+            for(int i =0; i < 10000; i++)
+            {
+                collapsableNumberOfPeople.animate().alphaBy((float) (.0001*i));
+            }
         });
 
 
