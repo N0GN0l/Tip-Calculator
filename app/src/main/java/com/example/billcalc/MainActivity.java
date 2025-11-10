@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     Button tenPercent;
     Button fifteenPercent;
     Button eighteenPercent;
+    Button changeNumberOfPeople;
+    LinearLayout collapsableNumberOfPeople;
     double tipPercent = 1.15;
     int amountOfPeople = 4;
     @Override
@@ -33,9 +36,10 @@ public class MainActivity extends AppCompatActivity {
         tenPercent = findViewById(R.id.Ten);
         fifteenPercent = findViewById(R.id.Fifteen);
         eighteenPercent = findViewById(R.id.Eighteen);
+        changeNumberOfPeople = findViewById(R.id.ChangeNumberOfPeople);
 
-
-
+        collapsableNumberOfPeople = findViewById(R.id.CollapsableNumberOfPeople);
+        collapsableNumberOfPeople.setAlpha(0f);
         //onClick Listeners
         billAmount.setOnClickListener(new View.OnClickListener(){
             @SuppressLint("SetTextI18n")
@@ -74,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
             highlightButton(eighteenPercent);
         });
 
+        changeNumberOfPeople.setOnClickListener(view -> {
+            //add animation to fly in from bottom
+            collapsableNumberOfPeople.setAlpha(1f);
+        });
 
 
     }//end of onCreate

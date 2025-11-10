@@ -10,4 +10,5 @@
     <string name="subtract">-</string>
     <string name="_4">4</string>
     <string name="minus_sign">-</string>
+    <string name="amount_of_people">Amount of People</string>
 </resources>
