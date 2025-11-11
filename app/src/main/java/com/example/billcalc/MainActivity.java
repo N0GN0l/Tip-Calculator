@@ -2,6 +2,8 @@ package com.example.billcalc;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,13 +48,21 @@ public class MainActivity extends AppCompatActivity {
         collapsableNumberOfPeople = findViewById(R.id.CollapsableNumberOfPeople);
         collapsableNumberOfPeople.setAlpha(0f);
         //onClick Listeners
-        billAmount.setOnClickListener(new View.OnClickListener(){
-            @SuppressLint("SetTextI18n")
+
+        billAmount.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View view)
-            {
+            public void afterTextChanged(Editable editable) {
                 amountPerPerson.setText(valueCalculator());
             }
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+
         });
 
         zeroPercent.setOnClickListener(view -> {
@@ -101,8 +111,6 @@ public class MainActivity extends AppCompatActivity {
                 changeableAmountOfPeople.setText(String.format("%d",amountOfPeople));
             }
         });
-
-
 
         //displays the collapsable view
         changeNumberOfPeople.setOnClickListener(view -> {
