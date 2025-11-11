@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,7 +19,8 @@ public class MainActivity extends AppCompatActivity {
     Button tenPercent;
     Button fifteenPercent;
     Button eighteenPercent;
-    Button subtractFromAmountOfPeople;
+    ImageView subtractFromAmountOfPeople;
+    ImageView addFromAmountOfPeople;
     Button changeNumberOfPeople;
     LinearLayout collapsableNumberOfPeople;
     double tipPercent = 1.15;
@@ -26,9 +28,6 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
-
         setContentView(R.layout.activity_main);
         super.onCreate(savedInstanceState);
         //linking XML and JAVA
@@ -41,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
         fifteenPercent = findViewById(R.id.Fifteen);
         eighteenPercent = findViewById(R.id.Eighteen);
         changeNumberOfPeople = findViewById(R.id.ChangeNumberOfPeople);
-        subtractFromAmountOfPeople = findViewById(R.id.subtractFromNumberOfPeople);
+        subtractFromAmountOfPeople = findViewById(R.id.SubtractFromNumberOfPeople);
+        addFromAmountOfPeople = findViewById(R.id.AddFromAmountOfPeople);
 
         collapsableNumberOfPeople = findViewById(R.id.CollapsableNumberOfPeople);
         collapsableNumberOfPeople.setAlpha(0f);
@@ -93,6 +93,17 @@ public class MainActivity extends AppCompatActivity {
                 changeableAmountOfPeople.setText(String.format("%d",amountOfPeople));
             }
         });
+        addFromAmountOfPeople.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("DefaultLocale")
+            @Override
+            public void onClick(View v) {
+                amountOfPeople++;
+                changeableAmountOfPeople.setText(String.format("%d",amountOfPeople));
+            }
+        });
+
+
+
         //displays the collapsable view
         changeNumberOfPeople.setOnClickListener(view -> {
             //add animation to fly in from bottom
