@@ -108,16 +108,25 @@
             android:textAlignment="center"
             android:textColor="@color/white" />
 
+        <ImageView
+            android:id="@+id/SubtractFromNumberOfPeople"
+            android:layout_width="30dp"
+            android:layout_height="16dp"
+            android:contentDescription="SUBTRACT"
+            android:focusable="true"
+            android:clickable="true"
+            android:layout_marginTop="70dp"
+            android:src="@drawable/subtract" />
 
-        <Button
-            android:id="@+id/subtractFromNumberOfPeople"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:background="@color/transparent"
-            android:text="@string/minus_sign"
-            android:textAlignment="center"
-            android:textSize="30sp" />
+        <ImageView
+            android:id="@+id/AddFromAmountOfPeople"
+            android:layout_width="60dp"
+            android:layout_height="57dp"
+            android:contentDescription="ADD"
+            android:focusable="true"
+            android:clickable="true"
+            android:layout_marginTop="53dp"
+            android:src="@drawable/add" />
 
 
     </LinearLayout>
