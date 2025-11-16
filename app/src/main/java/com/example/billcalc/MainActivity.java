@@ -27,13 +27,9 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        //linking XML and JAVA
-
-
-
         binding.CollapsableNumberOfPeople.setAlpha(0f);
-        //onClick Listeners
 
+        //onClick Listeners
         binding.BillAmount.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable editable) {
@@ -49,28 +45,24 @@ public class MainActivity extends AppCompatActivity {
 
 
         });
-
         binding.Zero.setOnClickListener(view1 -> {
             tipPercent = 1;
             binding.Amount.setText(MainActivity.this.valueCalculator());
             MainActivity.this.changeBack();
             MainActivity.this.highlightButton(binding.Zero);
         });
-
         binding.Ten.setOnClickListener(view2 -> {
             tipPercent = 1.1;
             binding.Amount.setText(MainActivity.this.valueCalculator());
             MainActivity.this.changeBack();
             MainActivity.this.highlightButton(binding.Ten);
         });
-
         binding.Fifteen.setOnClickListener(view3 -> {
             tipPercent = 1.15;
             binding.Amount.setText(MainActivity.this.valueCalculator());
             MainActivity.this.changeBack();
             MainActivity.this.highlightButton(binding.Fifteen);
         });
-
         binding.Eighteen.setOnClickListener(view4 -> {
             tipPercent = 1.18;
             binding.Amount.setText(MainActivity.this.valueCalculator());
@@ -81,11 +73,12 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("DefaultLocale")
             @Override
             public void onClick(View v) {
-                if(amountOfPeople!=0)
+                if(amountOfPeople>1)
                 {
                     amountOfPeople--;
                 }
                 binding.ChangeableAmountOfPeople.setText(String.format("%d",amountOfPeople));
+                binding.Amount.setText(MainActivity.this.valueCalculator());
             }
         });
         binding.AddFromAmountOfPeople.setOnClickListener(new View.OnClickListener() {
@@ -94,18 +87,37 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 amountOfPeople++;
                 binding.ChangeableAmountOfPeople.setText(String.format("%d",amountOfPeople));
+                binding.Amount.setText(MainActivity.this.valueCalculator());
             }
         });
 
+        binding.main.setOnClickListener(view6 -> {
+            if(binding.CollapsableNumberOfPeople.getAlpha() > 1f)
+            {
+                binding.CollapsableNumberOfPeople.setAlpha(1f);
+            }
+            for (int i = 0; i < 10000; i++) {
+                binding.CollapsableNumberOfPeople.animate().alphaBy((float) (-.0001 * i));
+            }
+
+            binding.ChangeableAmountOfPeople.setEnabled(false);
+        });
+
+
+
         //displays the collapsable view
         binding.ChangeNumberOfPeople.setOnClickListener(view5 -> {
+            binding.ChangeableAmountOfPeople.setEnabled(true);
             //add animation to fly in from bottom
+            if(binding.CollapsableNumberOfPeople.getAlpha() < 0f)
+            {
+                binding.CollapsableNumberOfPeople.setAlpha(0f);
+            }
             binding.ChangeableAmountOfPeople.setText(String.format("%d", amountOfPeople));
             for (int i = 0; i < 10000; i++) {
                 binding.CollapsableNumberOfPeople.animate().alphaBy((float) (.0001 * i));
             }
         });
-
 
     }//end of onCreate
 
