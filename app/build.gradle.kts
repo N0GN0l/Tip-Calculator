@@ -3,6 +3,9 @@ plugins {
 }
 
 android {
+    buildFeatures {
+        viewBinding = true
+    }
     namespace = "com.example.billcalc"
     compileSdk {
         version = release(36)
