@@ -6,9 +6,11 @@
     <string name="_0">0%</string>
     <string name="bill_amount">Bill Amount</string>
     <string name="increasenumberofpeople">IncreaseNumberOfPeople</string>
-    <string name="add">+</string>
-    <string name="subtract">-</string>
+    <string name="addition">+</string>
+    <string name="subtraction">-</string>
     <string name="_4">4</string>
     <string name="minus_sign">-</string>
     <string name="amount_of_people">Amount of People</string>
+    <string name="subtract">SUBTRACT</string>
+    <string name="add">ADD</string>
 </resources>

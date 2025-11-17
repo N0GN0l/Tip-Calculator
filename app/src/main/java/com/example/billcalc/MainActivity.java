@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void changeBack()
+    private void changeBack()
     {
         Button[] buttons = {binding.Zero,binding.Ten,binding.Fifteen,binding.Eighteen};
         for (Button button : buttons) {
