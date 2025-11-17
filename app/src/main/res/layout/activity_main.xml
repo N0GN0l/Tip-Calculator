@@ -133,11 +133,23 @@
         android:id="@+id/ChangeNumberOfPeople"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="124dp"
-        android:layout_marginBottom="448dp"
-        android:background="@color/transparent"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="444dp"
+        android:backgroundTint="#02437D"
         android:focusable="true"
         android:text="@string/amount_of_people"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/changeView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="224dp"
+        android:layout_marginBottom="444dp"
+        android:backgroundTint="#02437D"
+        android:focusable="true"
+        android:text="@string/uneven_split"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

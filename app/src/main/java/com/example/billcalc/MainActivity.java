@@ -1,6 +1,7 @@
 package com.example.billcalc;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 //importing widget types
@@ -88,6 +89,14 @@ public class MainActivity extends AppCompatActivity {
                 amountOfPeople++;
                 binding.ChangeableAmountOfPeople.setText(String.format("%d",amountOfPeople));
                 binding.Amount.setText(MainActivity.this.valueCalculator());
+            }
+        });
+
+        binding.changeView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,Unevenly_Split_Bill.class);
+                startActivity(intent);
             }
         });
 

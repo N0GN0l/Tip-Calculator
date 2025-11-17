@@ -8,4 +8,62 @@
     android:background="#373f42"
     tools:context=".Unevenly_Split_Bill">
 
+
+    <Button
+        android:id="@+id/ChangeNumberOfPeople"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="140dp"
+        android:layout_marginBottom="692dp"
+        android:backgroundTint="#02437D"
+        android:focusable="true"
+        android:text="@string/amount_of_people"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/CollapsableNumberOfPeople"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginBottom="4dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <EditText
+            android:id="@+id/ChangeableAmountOfPeople"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:inputType="number"
+            android:text="@string/_4"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/SubtractFromNumberOfPeople"
+            android:layout_width="30dp"
+            android:layout_height="16dp"
+            android:contentDescription="@string/subtract"
+            android:focusable="true"
+            android:clickable="true"
+            android:layout_marginTop="70dp"
+            android:src="@drawable/subtract" />
+
+        <ImageView
+            android:id="@+id/AddFromAmountOfPeople"
+            android:layout_width="60dp"
+            android:layout_height="57dp"
+            android:contentDescription="@string/add"
+            android:focusable="true"
+            android:clickable="true"
+            android:layout_marginTop="53dp"
+            android:src="@drawable/add" />
+    </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
