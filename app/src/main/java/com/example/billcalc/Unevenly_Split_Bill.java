@@ -8,8 +8,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class Unevenly_Split_Bill extends AppCompatActivity {
+import com.example.billcalc.databinding.ActivityUnevenlySplitBillBinding;
 
+public class Unevenly_Split_Bill extends AppCompatActivity {
+    private ActivityUnevenlySplitBillBinding binding2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +23,8 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
             return insets;
         });
 
-
+        binding2 = ActivityUnevenlySplitBillBinding.inflate(getLayoutInflater());
+        binding2.CollapsableNumberOfPeople.setAlpha(0);
 
 
 
