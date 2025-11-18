@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        binding.main.setOnClickListener(view6 -> {
+        view.setOnClickListener(view6 -> {
             if(binding.CollapsableNumberOfPeople.getAlpha() > 1f)
             {
                 binding.CollapsableNumberOfPeople.setAlpha(1f);

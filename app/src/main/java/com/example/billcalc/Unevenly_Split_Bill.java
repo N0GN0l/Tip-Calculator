@@ -14,6 +14,7 @@ import com.example.billcalc.databinding.ActivityUnevenlySplitBillBinding;
 public class Unevenly_Split_Bill extends AppCompatActivity {
     private ActivityUnevenlySplitBillBinding binding;
     int amountOfPeople = 4;
+    @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +24,7 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
 
         binding.CollapsableNumberOfPeople.setAlpha(0f);
 
-        binding.ChangeNumberOfPeople.setOnClickListener(view5 -> {
+        binding.ChangeNumberOfPeople.setOnClickListener(view1 -> {
             binding.ChangeableAmountOfPeople.setEnabled(true);
             //add animation to fly in from bottom
             if(binding.CollapsableNumberOfPeople.getAlpha() < 0f)
@@ -54,7 +55,7 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
                 binding.ChangeableAmountOfPeople.setText(String.format("%d",amountOfPeople));
             }
         });
-        binding.main.setOnClickListener(view6 -> {
+        view.setOnClickListener(view6 -> {
             if(binding.CollapsableNumberOfPeople.getAlpha() > 1f)
             {
                 binding.CollapsableNumberOfPeople.setAlpha(1f);
