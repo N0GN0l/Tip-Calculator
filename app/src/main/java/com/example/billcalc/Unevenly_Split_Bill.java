@@ -1,34 +1,69 @@
 package com.example.billcalc;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
 
-import androidx.activity.EdgeToEdge;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+
 
 import com.example.billcalc.databinding.ActivityUnevenlySplitBillBinding;
 
 public class Unevenly_Split_Bill extends AppCompatActivity {
-    private ActivityUnevenlySplitBillBinding binding2;
+    private ActivityUnevenlySplitBillBinding binding;
+    int amountOfPeople = 4;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_unevenly_split_bill);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+        binding = ActivityUnevenlySplitBillBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
+        binding.CollapsableNumberOfPeople.setAlpha(0f);
+
+        binding.ChangeNumberOfPeople.setOnClickListener(view5 -> {
+            binding.ChangeableAmountOfPeople.setEnabled(true);
+            //add animation to fly in from bottom
+            if(binding.CollapsableNumberOfPeople.getAlpha() < 0f)
+            {
+                binding.CollapsableNumberOfPeople.setAlpha(0f);
+            }
+            binding.ChangeableAmountOfPeople.setText(String.format("%d", amountOfPeople));
+            for (int i = 0; i < 10000; i++) {
+                binding.CollapsableNumberOfPeople.animate().alphaBy((float) (.0001 * i));
+            }
         });
+        binding.SubtractFromNumberOfPeople.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("DefaultLocale")
+            @Override
+            public void onClick(View v) {
+                if(amountOfPeople>1)
+                {
+                    amountOfPeople--;
+                }
+                binding.ChangeableAmountOfPeople.setText(String.format("%d",amountOfPeople));
+            }
+        });
+        binding.AddFromAmountOfPeople.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("DefaultLocale")
+            @Override
+            public void onClick(View v) {
+                amountOfPeople++;
+                binding.ChangeableAmountOfPeople.setText(String.format("%d",amountOfPeople));
+            }
+        });
+        binding.main.setOnClickListener(view6 -> {
+            if(binding.CollapsableNumberOfPeople.getAlpha() > 1f)
+            {
+                binding.CollapsableNumberOfPeople.setAlpha(1f);
+            }
+            for (int i = 0; i < 10000; i++) {
+                binding.CollapsableNumberOfPeople.animate().alphaBy((float) (-.0001 * i));
+            }
 
-        binding2 = ActivityUnevenlySplitBillBinding.inflate(getLayoutInflater());
-        binding2.CollapsableNumberOfPeople.setAlpha(0);
-
-
-
-
-
+            binding.ChangeableAmountOfPeople.setEnabled(false);
+        });
     }
 }
