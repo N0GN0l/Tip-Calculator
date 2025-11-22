@@ -2,7 +2,10 @@ package com.example.billcalc;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.billcalc.databinding.ActivityUnevenlySplitBillBinding;
 
 public class Unevenly_Split_Bill extends AppCompatActivity {
+    double tipPercent = 1.15;
     private ActivityUnevenlySplitBillBinding binding;
     int amountOfPeople = 4;
     @SuppressLint("DefaultLocale")
@@ -21,8 +25,32 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
         binding = ActivityUnevenlySplitBillBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
         binding.CollapsableNumberOfPeople.setAlpha(0f);
+
+
+        binding.zero.setOnClickListener(view1 -> {
+            tipPercent = 1;
+            Unevenly_Split_Bill.this.changeBack();
+            Unevenly_Split_Bill.this.highlightButton(binding.zero);
+        });
+        binding.ten.setOnClickListener(view2 -> {
+            tipPercent = 1.1;
+            Unevenly_Split_Bill.this.changeBack();
+            Unevenly_Split_Bill.this.highlightButton(binding.ten);
+        });
+        binding.fifteen.setOnClickListener(view3 -> {
+            tipPercent = 1.15;
+            Unevenly_Split_Bill.this.changeBack();
+            Unevenly_Split_Bill.this.highlightButton(binding.fifteen);
+        });
+        binding.eighteen.setOnClickListener(view4 -> {
+            tipPercent = 1.18;
+            Unevenly_Split_Bill.this.changeBack();
+            Unevenly_Split_Bill.this.highlightButton(binding.eighteen);
+        });
+
+
+
 
         binding.ChangeNumberOfPeople.setOnClickListener(view1 -> {
             binding.ChangeableAmountOfPeople.setEnabled(true);
@@ -56,6 +84,7 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
             }
         });
         view.setOnClickListener(view6 -> {
+            
             if(binding.CollapsableNumberOfPeople.getAlpha() > 1f)
             {
                 binding.CollapsableNumberOfPeople.setAlpha(1f);
@@ -66,5 +95,46 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
 
             binding.ChangeableAmountOfPeople.setEnabled(false);
         });
+
+        binding.billAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable editable) {
+                double tipAmount = valueCalculator();
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+        });
+    }
+
+
+    public double valueCalculator()
+    {
+        try {
+            double billAmount1 = Double.parseDouble(binding.billAmount.getText().toString());
+            return (billAmount1*tipPercent)/amountOfPeople;
+        } catch (NumberFormatException e){
+            System.out.println("EditText be empty");
+            return 0;
+        }
+    }
+    private void changeBack()
+    {
+        Button[] buttons = {binding.zero,binding.ten,binding.fifteen,binding.eighteen};
+        for (Button button : buttons) {
+            button.animate().alpha(1f);
+        }
+    }
+
+    public void highlightButton(Button button)
+    {
+        button.animate().alpha(.6f);
     }
 }

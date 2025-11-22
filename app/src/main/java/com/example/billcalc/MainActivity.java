@@ -92,12 +92,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        binding.changeView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,Unevenly_Split_Bill.class);
-                startActivity(intent);
-            }
+        binding.changeView.setOnClickListener(view7 -> {
+            Intent intent = new Intent(MainActivity.this,Unevenly_Split_Bill.class);
+            startActivity(intent);
         });
 
         view.setOnClickListener(view6 -> {
