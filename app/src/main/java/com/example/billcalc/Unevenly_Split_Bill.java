@@ -3,9 +3,11 @@ package com.example.billcalc;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.billcalc.databinding.ActivityUnevenlySplitBillBinding;
 
+import java.util.ArrayList;
+
 public class Unevenly_Split_Bill extends AppCompatActivity {
+    ArrayList<EditText> editTextArrayList = new ArrayList<EditText>();
     double tipPercent = 1.15;
     private ActivityUnevenlySplitBillBinding binding;
     int amountOfPeople = 4;
@@ -79,8 +84,11 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
             @SuppressLint("DefaultLocale")
             @Override
             public void onClick(View v) {
-                amountOfPeople++;
-                binding.ChangeableAmountOfPeople.setText(String.format("%d",amountOfPeople));
+                if(amountOfPeople < 16)
+                {
+                    amountOfPeople++;
+                    binding.ChangeableAmountOfPeople.setText(String.format("%d",amountOfPeople));
+                }
             }
         });
         view.setOnClickListener(view6 -> {
@@ -101,12 +109,10 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 double tipAmount = valueCalculator();
             }
-
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -132,7 +138,6 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
             button.animate().alpha(1f);
         }
     }
-
     public void highlightButton(Button button)
     {
         button.animate().alpha(.6f);
