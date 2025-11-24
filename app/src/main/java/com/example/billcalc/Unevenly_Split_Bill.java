@@ -113,8 +113,6 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
             binding.SubtractFromNumberOfPeople.setEnabled(false);
             binding.AddFromAmountOfPeople.setEnabled(false);
         });
-
-
         binding.billAmount.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable editable) {
@@ -129,6 +127,23 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
 
             }
         });
+
+        binding.ChangeableAmountOfPeople.setOnClickListener(view5 -> generateMultipleLinearLayouts());
+    }
+
+
+    public void generateMultipleLinearLayouts()
+    {
+        int valueFromEditText = Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString());
+        if(linearLayoutArrayList.size() != valueFromEditText)
+        {
+            if(valueFromEditText > linearLayoutArrayList.size())
+            {
+                for (int i = linearLayoutArrayList.size(); i < valueFromEditText; i++) {
+                    createLinearLayout(i);
+                }
+            }
+        }
     }
 
     public void createLinearLayout()
@@ -151,6 +166,28 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
             binding.rightSideEditTextHolder.addView(linearLayoutArrayList.get(numberOfPeople));
         }
     }
+
+    public void createLinearLayout(int numberOfPeople)
+    {
+        LinearLayout individualContribution = new LinearLayout(getApplicationContext());
+        individualContribution.setOrientation(LinearLayout.HORIZONTAL);
+        individualContribution.setId(numberOfPeople);
+        individualContribution.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+        linearLayoutArrayList.add(individualContribution);
+
+        fillLinearLayout(individualContribution);
+
+        if(numberOfPeople < 8)
+        {
+            binding.leftSideEditTextHolder.addView(linearLayoutArrayList.get(numberOfPeople));
+        }
+        else {
+            binding.rightSideEditTextHolder.addView(linearLayoutArrayList.get(numberOfPeople));
+        }
+    }
+
+
+
 
     public void deleteLinearLayout()
     {

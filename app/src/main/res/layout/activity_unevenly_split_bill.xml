@@ -102,7 +102,7 @@
             android:autofillHints=""
             android:ems="10"
             android:inputType="number"
-            android:text="0"
+            android:text="@string/_4"
             android:textAlignment="center"
             android:textColor="@color/white" />
 
