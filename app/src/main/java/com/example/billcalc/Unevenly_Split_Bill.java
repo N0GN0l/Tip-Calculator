@@ -217,7 +217,6 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 try {
-                    System.out.println(individualBill.getId());
                     double tempAmount = Double.parseDouble(individualBillInput.getText().toString()) + valueCalculator();
                     individualBill.setText("$" + tempAmount);
                 } catch (NumberFormatException e) {
@@ -234,9 +233,6 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
 
             }
         });
-
-
-
         layout.addView(individualBillInput, 0);
         layout.addView(individualBill, 1);
     }
@@ -246,9 +242,7 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
     {
         try {
             int numberOfPeople = Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString());
-            System.out.println(numberOfPeople);
             for (int i = 1000; i < (1000 + numberOfPeople); i++) {
-                System.out.println(i);
                 TextView tempTextViewName = findViewById(i);
                 EditText tempEditTextName = findViewById(i - 900);
 
