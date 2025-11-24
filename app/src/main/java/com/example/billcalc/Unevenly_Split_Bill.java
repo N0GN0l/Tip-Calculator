@@ -3,11 +3,12 @@ package com.example.billcalc;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +20,7 @@ import com.example.billcalc.databinding.ActivityUnevenlySplitBillBinding;
 import java.util.ArrayList;
 
 public class Unevenly_Split_Bill extends AppCompatActivity {
-    ArrayList<EditText> editTextArrayList = new ArrayList<EditText>();
+    ArrayList<LinearLayout> linearLayoutArrayList = new ArrayList<LinearLayout>();
     double tipPercent = 1.15;
     private ActivityUnevenlySplitBillBinding binding;
     int amountOfPeople = 4;
@@ -119,6 +120,50 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
             }
         });
     }
+
+    public void createLinearLayout()
+    {
+        int numberOfPeople = Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString());
+        LinearLayout individualContribution = new LinearLayout(getApplicationContext());
+        individualContribution.setOrientation(LinearLayout.HORIZONTAL);
+        individualContribution.setId(Integer.parseInt("LinearLayout" + numberOfPeople));
+        linearLayoutArrayList.add(individualContribution);
+        if(numberOfPeople < 9)
+        {
+            binding.leftSideEditTextHolder.addView(linearLayoutArrayList.get(numberOfPeople));
+        }
+        else
+        {
+            binding.rightSideEditTextHolder.addView(linearLayoutArrayList.get(numberOfPeople));
+        }
+    }
+
+    public void deleteLinearLayout()
+    {
+        int numberOfPeople = Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString());
+        if(numberOfPeople < 9)
+        {
+            binding.leftSideEditTextHolder.removeView(linearLayoutArrayList.remove(numberOfPeople+1));
+        }
+        else
+        {
+            binding.rightSideEditTextHolder.removeView(linearLayoutArrayList.remove(numberOfPeople+1));
+        }
+    }
+
+    public void fillLinearLayout(LinearLayout layout)
+    {
+        int numberOfPeople = Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString());
+        EditText individualBillInput = new EditText(getApplicationContext());
+        individualBillInput.setId(Integer.parseInt("EditText" + numberOfPeople));
+
+        TextView individualBill = new TextView(getApplicationContext());
+        individualBill.setId(Integer.parseInt("TextView" + numberOfPeople));
+
+        layout.addView(individualBillInput, 0);
+        layout.addView(individualBill, 1);
+    }
+
 
 
     public double valueCalculator()
