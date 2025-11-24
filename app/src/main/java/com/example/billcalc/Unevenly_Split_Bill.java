@@ -105,8 +105,9 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
             for (int i = 0; i < 10000; i++) {
                 binding.CollapsableNumberOfPeople.animate().alphaBy((float) (-.0001 * i));
             }
-
             binding.ChangeableAmountOfPeople.setEnabled(false);
+            binding.SubtractFromNumberOfPeople.setEnabled(false);
+            binding.AddFromAmountOfPeople.setEnabled(false);
         });
 
         binding.billAmount.addTextChangedListener(new TextWatcher() {
