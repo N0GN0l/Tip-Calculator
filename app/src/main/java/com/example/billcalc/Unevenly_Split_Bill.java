@@ -33,6 +33,7 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         binding.CollapsableNumberOfPeople.setAlpha(0f);
+        highlightButton(binding.fifteen);
 
         binding.zero.setOnClickListener(view1 -> {
             tipPercent = 0;

@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        highlightButton(binding.Fifteen);
+
 
         binding.CollapsableNumberOfPeople.setAlpha(0f);
 
