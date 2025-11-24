@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -20,10 +21,10 @@ import com.example.billcalc.databinding.ActivityUnevenlySplitBillBinding;
 import java.util.ArrayList;
 
 public class Unevenly_Split_Bill extends AppCompatActivity {
-    ArrayList<LinearLayout> linearLayoutArrayList = new ArrayList<LinearLayout>();
-    double tipPercent = 1.15;
+    ArrayList<LinearLayout> linearLayoutArrayList = new ArrayList<>();
+    double tipPercent = .15;
     private ActivityUnevenlySplitBillBinding binding;
-    int amountOfPeople = 4;
+    int amountOfPeople = 0;
     @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,22 +36,22 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
 
 
         binding.zero.setOnClickListener(view1 -> {
-            tipPercent = 1;
+            tipPercent = 0;
             Unevenly_Split_Bill.this.changeBack();
             Unevenly_Split_Bill.this.highlightButton(binding.zero);
         });
         binding.ten.setOnClickListener(view2 -> {
-            tipPercent = 1.1;
+            tipPercent = .1;
             Unevenly_Split_Bill.this.changeBack();
             Unevenly_Split_Bill.this.highlightButton(binding.ten);
         });
         binding.fifteen.setOnClickListener(view3 -> {
-            tipPercent = 1.15;
+            tipPercent = .15;
             Unevenly_Split_Bill.this.changeBack();
             Unevenly_Split_Bill.this.highlightButton(binding.fifteen);
         });
         binding.eighteen.setOnClickListener(view4 -> {
-            tipPercent = 1.18;
+            tipPercent = .18;
             Unevenly_Split_Bill.this.changeBack();
             Unevenly_Split_Bill.this.highlightButton(binding.eighteen);
         });
@@ -78,7 +79,7 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
                 {
                     amountOfPeople--;
                 }
-                binding.ChangeableAmountOfPeople.setText(String.format("%d",amountOfPeople));
+
             }
         });
         binding.AddFromAmountOfPeople.setOnClickListener(new View.OnClickListener() {
