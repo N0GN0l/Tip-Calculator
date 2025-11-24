@@ -34,31 +34,32 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
         setContentView(view);
         binding.CollapsableNumberOfPeople.setAlpha(0f);
 
-
         binding.zero.setOnClickListener(view1 -> {
             tipPercent = 0;
+            changeAllTextViews();
             Unevenly_Split_Bill.this.changeBack();
             Unevenly_Split_Bill.this.highlightButton(binding.zero);
         });
         binding.ten.setOnClickListener(view2 -> {
             tipPercent = .1;
+            changeAllTextViews();
             Unevenly_Split_Bill.this.changeBack();
             Unevenly_Split_Bill.this.highlightButton(binding.ten);
         });
         binding.fifteen.setOnClickListener(view3 -> {
             tipPercent = .15;
+            changeAllTextViews();
             Unevenly_Split_Bill.this.changeBack();
             Unevenly_Split_Bill.this.highlightButton(binding.fifteen);
         });
         binding.eighteen.setOnClickListener(view4 -> {
             tipPercent = .18;
+            changeAllTextViews();
             Unevenly_Split_Bill.this.changeBack();
             Unevenly_Split_Bill.this.highlightButton(binding.eighteen);
         });
 
-
-
-
+        //displays the collapsable view
         binding.ChangeNumberOfPeople.setOnClickListener(view1 -> {
             binding.ChangeableAmountOfPeople.setEnabled(true);
             //add animation to fly in from bottom
@@ -70,6 +71,8 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
             for (int i = 0; i < 10000; i++) {
                 binding.CollapsableNumberOfPeople.animate().alphaBy((float) (.0001 * i));
             }
+            binding.SubtractFromNumberOfPeople.setEnabled(true);
+            binding.AddFromAmountOfPeople.setEnabled(true);
         });
         binding.SubtractFromNumberOfPeople.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("DefaultLocale")
@@ -80,8 +83,8 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
                     amountOfPeople--;
                     deleteLinearLayout();
                     binding.ChangeableAmountOfPeople.setText(String.format("%d",amountOfPeople));
+                    changeAllTextViews();
                 }
-
             }
         });
         binding.AddFromAmountOfPeople.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +96,7 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
                     amountOfPeople++;
                     createLinearLayout();
                     binding.ChangeableAmountOfPeople.setText(String.format("%d",amountOfPeople));
+                    changeAllTextViews();
                 }
             }
         });
@@ -110,10 +114,11 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
             binding.AddFromAmountOfPeople.setEnabled(false);
         });
 
+
         binding.billAmount.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable editable) {
-                double tipAmount = valueCalculator();
+                changeAllTextViews();
             }
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -144,7 +149,6 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
         }
         else {
             binding.rightSideEditTextHolder.addView(linearLayoutArrayList.get(numberOfPeople));
-            System.out.println("Add to right side");
         }
     }
 
@@ -166,19 +170,24 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
         int numberOfPeople = Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString());
         EditText individualBillInput = new EditText(getApplicationContext());
         individualBillInput.setHint("Bill Amount");
-        individualBillInput.setId(numberOfPeople);
+        individualBillInput.setId(100 + numberOfPeople);
 
 
         TextView individualBill = new TextView(getApplicationContext());
-        individualBill.setId(numberOfPeople);
+        individualBill.setId(1000 + numberOfPeople);
+        individualBill.setText("$0");
 
         individualBillInput.addTextChangedListener(new TextWatcher() {
             @SuppressLint("SetTextI18n")
             @Override
             public void afterTextChanged(Editable editable) {
-                System.out.println(valueCalculator());
-                double tempAmount = Double.parseDouble(individualBillInput.getText().toString()) + valueCalculator();
-                individualBill.setText("$" + tempAmount);
+                try {
+                    double tempAmount = Double.parseDouble(individualBillInput.getText().toString()) + valueCalculator();
+                    individualBill.setText("$" + tempAmount);
+                } catch (NumberFormatException e) {
+                    individualBill.setText("$0");
+                    System.out.println("EditText be empty");
+                }
             }
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -196,7 +205,23 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
         layout.addView(individualBill, 1);
     }
 
+    @SuppressLint("SetTextI18n")
+    public void changeAllTextViews()
+    {
+        int numberOfPeople = Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString());
+        try {
+            for (int i = 1000; i < (1000 + numberOfPeople); i++) {
+                TextView tempTextViewName = findViewById(i);
+                EditText tempEditTextName = findViewById(i - 900);
 
+
+                double tempAmount = Double.parseDouble(tempEditTextName.getText().toString()) + valueCalculator();
+                tempTextViewName.setText("$" + tempAmount);
+            }
+        }catch (NumberFormatException e){
+            System.out.println("EditText be empty");
+        }
+    }
 
     public double valueCalculator()
     {

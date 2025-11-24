@@ -124,6 +124,8 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < 10000; i++) {
                 binding.CollapsableNumberOfPeople.animate().alphaBy((float) (.0001 * i));
             }
+            binding.SubtractFromNumberOfPeople.setEnabled(false);
+            binding.AddFromAmountOfPeople.setEnabled(false);
         });
 
     }//end of onCreate
