@@ -78,6 +78,8 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
                 if(amountOfPeople>1)
                 {
                     amountOfPeople--;
+                    deleteLinearLayout();
+                    binding.ChangeableAmountOfPeople.setText(String.format("%d",amountOfPeople));
                 }
 
             }
@@ -89,6 +91,7 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
                 if(amountOfPeople < 16)
                 {
                     amountOfPeople++;
+                    createLinearLayout();
                     binding.ChangeableAmountOfPeople.setText(String.format("%d",amountOfPeople));
                 }
             }
@@ -125,30 +128,35 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
     public void createLinearLayout()
     {
         int numberOfPeople = Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString());
+
         LinearLayout individualContribution = new LinearLayout(getApplicationContext());
         individualContribution.setOrientation(LinearLayout.HORIZONTAL);
-        individualContribution.setId(Integer.parseInt("LinearLayout" + numberOfPeople));
+        individualContribution.setId(numberOfPeople);
+        individualContribution.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
         linearLayoutArrayList.add(individualContribution);
-        if(numberOfPeople < 9)
+
+        fillLinearLayout(individualContribution);
+
+        if(numberOfPeople < 8)
         {
             binding.leftSideEditTextHolder.addView(linearLayoutArrayList.get(numberOfPeople));
         }
-        else
-        {
+        else {
             binding.rightSideEditTextHolder.addView(linearLayoutArrayList.get(numberOfPeople));
+            System.out.println("Add to right side");
         }
     }
 
     public void deleteLinearLayout()
     {
         int numberOfPeople = Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString());
-        if(numberOfPeople < 9)
+        if(numberOfPeople <= 8)
         {
-            binding.leftSideEditTextHolder.removeView(linearLayoutArrayList.remove(numberOfPeople+1));
+            binding.leftSideEditTextHolder.removeView(linearLayoutArrayList.remove(numberOfPeople-1));
         }
         else
         {
-            binding.rightSideEditTextHolder.removeView(linearLayoutArrayList.remove(numberOfPeople+1));
+            binding.rightSideEditTextHolder.removeView(linearLayoutArrayList.remove(numberOfPeople-1));
         }
     }
 
@@ -156,10 +164,32 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
     {
         int numberOfPeople = Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString());
         EditText individualBillInput = new EditText(getApplicationContext());
-        individualBillInput.setId(Integer.parseInt("EditText" + numberOfPeople));
+        individualBillInput.setHint("Bill Amount");
+        individualBillInput.setId(numberOfPeople);
+
 
         TextView individualBill = new TextView(getApplicationContext());
-        individualBill.setId(Integer.parseInt("TextView" + numberOfPeople));
+        individualBill.setId(numberOfPeople);
+
+        individualBillInput.addTextChangedListener(new TextWatcher() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void afterTextChanged(Editable editable) {
+                System.out.println(valueCalculator());
+                double tempAmount = Double.parseDouble(individualBillInput.getText().toString()) + valueCalculator();
+                individualBill.setText("$" + tempAmount);
+            }
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+        });
+
+
 
         layout.addView(individualBillInput, 0);
         layout.addView(individualBill, 1);
@@ -169,9 +199,15 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
 
     public double valueCalculator()
     {
+        // make more efficient by adding if statement instead of try catch, that way it won't run unneeded code
         try {
+            int numberOfPeople = Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString());
             double billAmount1 = Double.parseDouble(binding.billAmount.getText().toString());
-            return (billAmount1*tipPercent)/amountOfPeople;
+            double tempTipAmount = (billAmount1 * tipPercent);
+            tempTipAmount /= numberOfPeople;
+            tempTipAmount = Math.round(tempTipAmount * 100.0);
+            tempTipAmount = tempTipAmount/100;
+            return tempTipAmount;
         } catch (NumberFormatException e){
             System.out.println("EditText be empty");
             return 0;
