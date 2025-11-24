@@ -186,9 +186,6 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
         }
     }
 
-
-
-
     public void deleteLinearLayout()
     {
         int numberOfPeople = Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString());
@@ -219,6 +216,7 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 try {
+                    System.out.println(individualBill.getId());
                     double tempAmount = Double.parseDouble(individualBillInput.getText().toString()) + valueCalculator();
                     individualBill.setText("$" + tempAmount);
                 } catch (NumberFormatException e) {
@@ -245,18 +243,25 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     public void changeAllTextViews()
     {
-        int numberOfPeople = Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString());
         try {
+            int numberOfPeople = Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString());
+            System.out.println(numberOfPeople);
             for (int i = 1000; i < (1000 + numberOfPeople); i++) {
+                System.out.println(i);
                 TextView tempTextViewName = findViewById(i);
                 EditText tempEditTextName = findViewById(i - 900);
 
+                //prevents it from getting stuck on one empty edittext and not continuing on to the other edittexts that exist
+                if(tempEditTextName.getText().toString().isEmpty())
+                {
+                    continue;
+                }
 
                 double tempAmount = Double.parseDouble(tempEditTextName.getText().toString()) + valueCalculator();
                 tempTextViewName.setText("$" + tempAmount);
             }
-        }catch (NumberFormatException e){
-            System.out.println("EditText be empty");
+        }catch (NullPointerException e){
+            System.out.println("EditText be nonexisty");
         }
     }
 
