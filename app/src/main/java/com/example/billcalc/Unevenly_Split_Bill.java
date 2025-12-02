@@ -160,11 +160,13 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
             {
                 for (int i = linearLayoutArrayList.size(); i < valueFromEditText; i++) {
                     createLinearLayout(i);
+                    amountOfPeople = linearLayoutArrayList.size();
                 }
             }
             else if(valueFromEditText < linearLayoutArrayList.size())
             {
                 deleteLinearLayout(valueFromEditText);
+                amountOfPeople = linearLayoutArrayList.size();
             }
         }
     }
