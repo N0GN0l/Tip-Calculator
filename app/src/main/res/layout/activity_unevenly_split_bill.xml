@@ -17,6 +17,7 @@
         android:layout_marginBottom="624dp"
         android:backgroundTint="#02437D"
         android:focusable="true"
+        android:textColor="@color/white"
         android:text="@string/even_split"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -28,6 +29,7 @@
         android:layout_marginStart="224dp"
         android:layout_marginBottom="576dp"
         android:backgroundTint="#02437D"
+        android:textColor="@color/white"
         android:text="@string/_15"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -39,6 +41,7 @@
         android:layout_marginStart="312dp"
         android:layout_marginBottom="576dp"
         android:backgroundTint="#02437D"
+        android:textColor="@color/white"
         android:text="@string/_18"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -50,7 +53,7 @@
         android:layout_marginStart="48dp"
         android:layout_marginBottom="576dp"
         android:backgroundTint="#02437D"
-
+        android:textColor="@color/white"
         android:text="@string/_0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -62,6 +65,7 @@
         android:layout_marginStart="136dp"
         android:layout_marginBottom="576dp"
         android:backgroundTint="#02437D"
+        android:textColor="@color/white"
         android:text="@string/_10"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -91,6 +95,7 @@
         android:layout_marginBottom="624dp"
         android:backgroundTint="#02437D"
         android:focusable="true"
+        android:textColor="@color/white"
         android:text="@string/amount_of_people"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -72,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
             MainActivity.this.changeBack();
             MainActivity.this.highlightButton(binding.Eighteen);
         });
+
+
         binding.SubtractFromNumberOfPeople.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("DefaultLocale")
             @Override
@@ -79,15 +81,14 @@ public class MainActivity extends AppCompatActivity {
                 if(amountOfPeople>1)
                 {
                     amountOfPeople--;
+                    binding.ChangeableAmountOfPeople.setText(String.format("%d",amountOfPeople));
                 }
-                binding.ChangeableAmountOfPeople.setText(String.format("%d",amountOfPeople));
-                binding.Amount.setText(MainActivity.this.valueCalculator());
             }
         });
         binding.AddFromAmountOfPeople.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("DefaultLocale")
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 amountOfPeople++;
                 binding.ChangeableAmountOfPeople.setText(String.format("%d",amountOfPeople));
                 binding.Amount.setText(MainActivity.this.valueCalculator());
@@ -126,8 +127,8 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < 10000; i++) {
                 binding.CollapsableNumberOfPeople.animate().alphaBy((float) (.0001 * i));
             }
-            binding.SubtractFromNumberOfPeople.setEnabled(false);
-            binding.AddFromAmountOfPeople.setEnabled(false);
+            binding.SubtractFromNumberOfPeople.setEnabled(true);
+            binding.AddFromAmountOfPeople.setEnabled(true);
         });
 
     }//end of onCreate
