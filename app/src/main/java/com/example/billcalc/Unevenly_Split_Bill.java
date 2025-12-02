@@ -1,6 +1,7 @@
 package com.example.billcalc;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,15 +26,18 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
     ArrayList<LinearLayout> linearLayoutArrayList = new ArrayList<>();
     double tipPercent = .15;
     private ActivityUnevenlySplitBillBinding binding;
-    int amountOfPeople = 0;
-    @SuppressLint("DefaultLocale")
+    int amountOfPeople = 4;
+    @SuppressLint({"DefaultLocale", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityUnevenlySplitBillBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        binding.CollapsableNumberOfPeople.setAlpha(0f);
+        binding.CollapsableNumberOfPeople.setAlpha(1f);
+        highlightButton(binding.fifteen);
+
+        manipulateLinearLayouts();
 
         binding.zero.setOnClickListener(view1 -> {
             tipPercent = 0;
@@ -57,6 +62,11 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
             changeAllTextViews();
             Unevenly_Split_Bill.this.changeBack();
             Unevenly_Split_Bill.this.highlightButton(binding.eighteen);
+        });
+
+        binding.changeView1.setOnClickListener(view7 -> {
+            Intent intent = new Intent(Unevenly_Split_Bill.this,MainActivity.class);
+            startActivity(intent);
         });
 
         //displays the collapsable view
@@ -128,11 +138,26 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
             }
         });
 
-        binding.ChangeableAmountOfPeople.setOnClickListener(view5 -> generateMultipleLinearLayouts());
+        binding.ChangeableAmountOfPeople.setOnClickListener(view5 -> {
+                if(Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString()) > 16)
+                {
+                    binding.ChangeableAmountOfPeople.setText("16");
+                    Toast hahaidiot = Toast.makeText(this /* MyActivity */, "You are not allowed to have more than 16 friends", Toast.LENGTH_SHORT);
+                    hahaidiot.show();
+                }
+            if(Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString()) == 0)
+            {
+                binding.ChangeableAmountOfPeople.setText("1");
+                Toast hahaidiot = Toast.makeText(this /* MyActivity */, "You are not allowed to have no friends", Toast.LENGTH_SHORT);
+                hahaidiot.show();
+            }
+
+                manipulateLinearLayouts();
+        });
     }
 
 
-    public void generateMultipleLinearLayouts()
+    public void manipulateLinearLayouts()
     {
         int valueFromEditText = Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString());
         if(linearLayoutArrayList.size() != valueFromEditText)
@@ -141,7 +166,13 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
             {
                 for (int i = linearLayoutArrayList.size(); i < valueFromEditText; i++) {
                     createLinearLayout(i);
+                    amountOfPeople = linearLayoutArrayList.size();
                 }
+            }
+            else if(valueFromEditText < linearLayoutArrayList.size())
+            {
+                deleteLinearLayout(valueFromEditText);
+                amountOfPeople = linearLayoutArrayList.size();
             }
         }
     }
@@ -184,6 +215,8 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
         else {
             binding.rightSideEditTextHolder.addView(linearLayoutArrayList.get(numberOfPeople));
         }
+
+
     }
 
     public void deleteLinearLayout()
@@ -198,6 +231,25 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
             binding.rightSideEditTextHolder.removeView(linearLayoutArrayList.remove(numberOfPeople-1));
         }
     }
+
+    public void deleteLinearLayout(int numberOfPeople)
+    {
+        if(linearLayoutArrayList.size() > 8)
+        {
+            binding.rightSideEditTextHolder.removeView(linearLayoutArrayList.remove(linearLayoutArrayList.size()-1));
+        }
+        else
+        {
+            binding.leftSideEditTextHolder.removeView(linearLayoutArrayList.remove(linearLayoutArrayList.size()-1));
+        }
+        if(!(linearLayoutArrayList.size() == numberOfPeople))
+        {
+            deleteLinearLayout(numberOfPeople);
+        }
+    }
+
+
+
 
     public void fillLinearLayout(LinearLayout layout)
     {
@@ -216,7 +268,6 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 try {
-                    System.out.println(individualBill.getId());
                     double tempAmount = Double.parseDouble(individualBillInput.getText().toString()) + valueCalculator();
                     individualBill.setText("$" + tempAmount);
                 } catch (NumberFormatException e) {
@@ -233,9 +284,6 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
 
             }
         });
-
-
-
         layout.addView(individualBillInput, 0);
         layout.addView(individualBill, 1);
     }
@@ -245,9 +293,7 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
     {
         try {
             int numberOfPeople = Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString());
-            System.out.println(numberOfPeople);
             for (int i = 1000; i < (1000 + numberOfPeople); i++) {
-                System.out.println(i);
                 TextView tempTextViewName = findViewById(i);
                 EditText tempEditTextName = findViewById(i - 900);
 
