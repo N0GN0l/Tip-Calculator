@@ -145,6 +145,12 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
                     Toast hahaidiot = Toast.makeText(this /* MyActivity */, "You are not allowed to have more than 16 friends", Toast.LENGTH_SHORT);
                     hahaidiot.show();
                 }
+            if(Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString()) == 0)
+            {
+                binding.ChangeableAmountOfPeople.setText("1");
+                Toast hahaidiot = Toast.makeText(this /* MyActivity */, "You are not allowed to have no friends", Toast.LENGTH_SHORT);
+                hahaidiot.show();
+            }
 
                 manipulateLinearLayouts();
         });
