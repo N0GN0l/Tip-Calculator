@@ -47,7 +47,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="312dp"
         android:backgroundTint="#02437D"
-
+        android:textColor="@color/white"
         android:text="@string/_0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -59,6 +59,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="264dp"
         android:backgroundTint="#02437D"
+        android:textColor="@color/white"
         android:text="@string/_10"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -70,6 +71,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="216dp"
         android:backgroundTint="#02437D"
+        android:textColor="@color/white"
         android:text="@string/_15"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -81,6 +83,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="168dp"
         android:backgroundTint="#02437D"
+        android:textColor="@color/white"
         android:text="@string/_18"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -137,6 +140,7 @@
         android:layout_marginBottom="444dp"
         android:backgroundTint="#02437D"
         android:focusable="true"
+        android:textColor="@color/white"
         android:text="@string/amount_of_people"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -147,6 +151,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="224dp"
         android:layout_marginBottom="444dp"
+        android:textColor="@color/white"
         android:backgroundTint="#02437D"
         android:focusable="true"
         android:text="@string/uneven_split"

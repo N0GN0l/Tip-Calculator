@@ -1,9 +1,12 @@
 package com.example.billcalc;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.ScriptGroup;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +18,7 @@ import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.core.content.ContextCompat;
 
 
 import com.example.billcalc.databinding.ActivityUnevenlySplitBillBinding;
@@ -257,11 +260,13 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
         EditText individualBillInput = new EditText(getApplicationContext());
         individualBillInput.setHint("Bill Amount");
         individualBillInput.setId(100 + numberOfPeople);
-
+        individualBillInput.setInputType(InputType.TYPE_CLASS_NUMBER);
+        individualBillInput.setTextColor(ContextCompat.getColor(this,R.color.white));
 
         TextView individualBill = new TextView(getApplicationContext());
         individualBill.setId(1000 + numberOfPeople);
         individualBill.setText("$0");
+        individualBill.setTextColor(ContextCompat.getColor(this,R.color.white));
 
         individualBillInput.addTextChangedListener(new TextWatcher() {
             @SuppressLint("SetTextI18n")
