@@ -10,6 +10,18 @@
 
 
     <Button
+        android:id="@+id/changeView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="232dp"
+        android:layout_marginBottom="624dp"
+        android:backgroundTint="#02437D"
+        android:focusable="true"
+        android:text="@string/even_split"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
         android:id="@+id/fifteen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -75,7 +87,7 @@
         android:id="@+id/ChangeNumberOfPeople"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
+        android:layout_marginStart="68dp"
         android:layout_marginBottom="624dp"
         android:backgroundTint="#02437D"
         android:focusable="true"

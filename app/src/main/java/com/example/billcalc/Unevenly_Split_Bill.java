@@ -1,6 +1,7 @@
 package com.example.billcalc;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -58,6 +59,11 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
             changeAllTextViews();
             Unevenly_Split_Bill.this.changeBack();
             Unevenly_Split_Bill.this.highlightButton(binding.eighteen);
+        });
+
+        binding.changeView1.setOnClickListener(view7 -> {
+            Intent intent = new Intent(Unevenly_Split_Bill.this,MainActivity.class);
+            startActivity(intent);
         });
 
         //displays the collapsable view
@@ -144,6 +150,14 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
                     createLinearLayout(i);
                 }
             }
+            else if(valueFromEditText < linearLayoutArrayList.size())
+            {
+                for(int i = linearLayoutArrayList.size()-1; i >= valueFromEditText; i--)
+                {
+                    System.out.println(i);
+                    deleteLinearLayout(valueFromEditText);
+                }
+            }
         }
     }
 
@@ -199,6 +213,21 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
             binding.rightSideEditTextHolder.removeView(linearLayoutArrayList.remove(numberOfPeople-1));
         }
     }
+
+    public void deleteLinearLayout(int numberOfPeople)
+    {
+        if(numberOfPeople <= 8)
+        {
+            binding.leftSideEditTextHolder.removeView(linearLayoutArrayList.remove(numberOfPeople));
+        }
+        else
+        {
+            binding.rightSideEditTextHolder.removeView(linearLayoutArrayList.remove(numberOfPeople));
+        }
+    }
+
+
+
 
     public void fillLinearLayout(LinearLayout layout)
     {

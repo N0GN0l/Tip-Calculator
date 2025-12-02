@@ -14,4 +14,5 @@
     <string name="subtract">SUBTRACT</string>
     <string name="add">ADD</string>
     <string name="uneven_split">Uneven split</string>
+    <string name="even_split">Even Split</string>
 </resources>
