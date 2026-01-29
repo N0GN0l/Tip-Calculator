@@ -1,10 +1,8 @@
 package com.example.billcalc;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -24,8 +22,11 @@ import androidx.core.content.ContextCompat;
 import com.example.billcalc.databinding.ActivityUnevenlySplitBillBinding;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Unevenly_Split_Bill extends AppCompatActivity {
+    HashMap<Integer, TextView> integerTextViewHashMap = new HashMap<>();
+    HashMap<Integer, EditText> integerEditTextHashMap = new HashMap<>();
     ArrayList<LinearLayout> linearLayoutArrayList = new ArrayList<>();
     double tipPercent = .15;
     private ActivityUnevenlySplitBillBinding binding;
@@ -145,37 +146,39 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
                 if(Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString()) > 16)
                 {
                     binding.ChangeableAmountOfPeople.setText("16");
-                    Toast hahaidiot = Toast.makeText(this /* MyActivity */, "You are not allowed to have more than 16 friends", Toast.LENGTH_SHORT);
-                    hahaidiot.show();
+                    Toast too_many_friends = Toast.makeText(this /* MyActivity */, "You are not allowed to have more than 16 friends", Toast.LENGTH_SHORT);
+                    too_many_friends.show();
                 }
             if(Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString()) == 0)
             {
                 binding.ChangeableAmountOfPeople.setText("1");
-                Toast hahaidiot = Toast.makeText(this /* MyActivity */, "You are not allowed to have no friends", Toast.LENGTH_SHORT);
-                hahaidiot.show();
+                Toast no_friends = Toast.makeText(this /* MyActivity */, "You are not allowed to have no friends", Toast.LENGTH_SHORT);
+                no_friends.show();
             }
-
-                manipulateLinearLayouts();
+            manipulateLinearLayouts();
+            changeAllTextViews();
         });
     }
 
 
+    @SuppressLint("DefaultLocale")
     public void manipulateLinearLayouts()
     {
-        int valueFromEditText = Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString());
-        if(linearLayoutArrayList.size() != valueFromEditText)
+        int numberOfPeople = Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString());
+        if(linearLayoutArrayList.size() != numberOfPeople)
         {
-            if(valueFromEditText > linearLayoutArrayList.size())
+            if(numberOfPeople > linearLayoutArrayList.size())
             {
-                for (int i = linearLayoutArrayList.size(); i < valueFromEditText; i++) {
+                for (int i = linearLayoutArrayList.size(); i < numberOfPeople; i++) {
                     createLinearLayout(i);
                     amountOfPeople = linearLayoutArrayList.size();
+                    binding.ChangeableAmountOfPeople.setText(String.format("%d",amountOfPeople));
                 }
             }
-            else if(valueFromEditText < linearLayoutArrayList.size())
-            {
-                deleteLinearLayout(valueFromEditText);
+            else {
+                deleteLinearLayout(numberOfPeople);
                 amountOfPeople = linearLayoutArrayList.size();
+                binding.ChangeableAmountOfPeople.setText(String.format("%d",amountOfPeople));
             }
         }
     }
@@ -221,7 +224,6 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
 
 
     }
-
     public void deleteLinearLayout()
     {
         int numberOfPeople = Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString());
@@ -234,7 +236,6 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
             binding.rightSideEditTextHolder.removeView(linearLayoutArrayList.remove(numberOfPeople-1));
         }
     }
-
     public void deleteLinearLayout(int numberOfPeople)
     {
         if(linearLayoutArrayList.size() > 8)
@@ -250,21 +251,17 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
             deleteLinearLayout(numberOfPeople);
         }
     }
-
-
-
-
     public void fillLinearLayout(LinearLayout layout)
     {
         int numberOfPeople = Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString());
         EditText individualBillInput = new EditText(getApplicationContext());
         individualBillInput.setHint("Bill Amount");
-        individualBillInput.setId(100 + numberOfPeople);
+        integerEditTextHashMap.putIfAbsent(numberOfPeople, individualBillInput);
         individualBillInput.setInputType(InputType.TYPE_CLASS_NUMBER);
         individualBillInput.setTextColor(ContextCompat.getColor(this,R.color.white));
 
         TextView individualBill = new TextView(getApplicationContext());
-        individualBill.setId(1000 + numberOfPeople);
+        integerTextViewHashMap.putIfAbsent(numberOfPeople, individualBill);
         individualBill.setText("$0");
         individualBill.setTextColor(ContextCompat.getColor(this,R.color.white));
 
@@ -297,18 +294,19 @@ public class Unevenly_Split_Bill extends AppCompatActivity {
     public void changeAllTextViews()
     {
         try {
-            int numberOfPeople = Integer.parseInt(binding.ChangeableAmountOfPeople.getText().toString());
-            for (int i = 1000; i < (1000 + numberOfPeople); i++) {
-                TextView tempTextViewName = findViewById(i);
-                EditText tempEditTextName = findViewById(i - 900);
+            for (int i = 1; i <= integerTextViewHashMap.size(); i++) {
+                TextView tempTextViewName = integerTextViewHashMap.get(i);
+                EditText tempEditTextName = integerEditTextHashMap.get(i);
 
                 //prevents it from getting stuck on one empty edittext and not continuing on to the other edittexts that exist
+                assert tempEditTextName != null;
                 if(tempEditTextName.getText().toString().isEmpty())
                 {
                     continue;
                 }
 
                 double tempAmount = Double.parseDouble(tempEditTextName.getText().toString()) + valueCalculator();
+                assert tempTextViewName != null;
                 tempTextViewName.setText("$" + tempAmount);
             }
         }catch (NullPointerException e){
